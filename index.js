@@ -7,7 +7,6 @@ const mongoose = require('mongoose')
 const swaggerUi = require('swagger-ui-express')
 const morgan = require('morgan')
 const errorHandler = require('./api/errorHandlers/errorHandler')
-const mongoError = require('./api/errorHandlers/mongoHandler')
 const swaggerJSDoc = require('swagger-jsdoc')
 const logger = require('./logger/logger')
 
