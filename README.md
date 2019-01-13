@@ -16,7 +16,7 @@ $ npm start
 ```
 
 App should now be running on [localhost:5000](http://localhost:5000/).
-Api docs now be running on [localhost:5000/api-docs](http://localhost:5000/api/v1)
+Api docs now be running on [localhost:5000/api/v1](http://localhost:5000/api/v1)
 
 ## Deploying to Heroku
 
