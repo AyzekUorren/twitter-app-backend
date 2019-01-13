@@ -10,7 +10,7 @@ Make sure you have [Node.js](http://nodejs.org/), [MongoDB](https://www.mongodb.
 
 ```sh
 $ git clone git@github.com:AyzekUorren/twitter-app-backend.git
-$ cd twitterAppBackend
+$ cd twitter-app-backend
 $ npm install
 $ npm start
 ```
