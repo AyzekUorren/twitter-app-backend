@@ -19,7 +19,7 @@ module.exports = {
 		const { email, password, username } = req.body;
 
 		const user = await User.findOne({ email });
-		if (user) next(new BadRequest('User already exist'));
+		if (user) throw new BadRequest('User already exist');
 
 		const newUser = new User ({ email, password, username });
 		return await newUser.save( (err, user) => {
@@ -30,7 +30,7 @@ module.exports = {
 			res.json({ access_token });
 		});
 		} catch(error) {
-		next(new BadRequest);
+		 next(error);
 		}
 	},
 	signIn: async (req, res, next) => {
@@ -45,7 +45,7 @@ module.exports = {
 	},
 	getUser: async(req, res, next) => {
 		const { _id, email, username } = req.user;
-		const user = { _id, email, username };
+		const user = { id: _id, email, username };
 		console.log(`=> `, user);
 		res.status(200).json(user);
 	},

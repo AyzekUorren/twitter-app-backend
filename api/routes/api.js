@@ -50,6 +50,7 @@ router
      *     parameters:
      *      - in: body
      *        name: user
+     *        description: username is not required
      *        schema:
      *         $ref: "#/definitions/User"
      *
