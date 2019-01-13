@@ -1,4 +1,4 @@
-# DayBook-backend
+# Twitter-App-backend
 
 Node.js app using [Express](http://expressjs.com/).
 
