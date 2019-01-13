@@ -9,7 +9,7 @@ App uses
 Make sure you have [Node.js](http://nodejs.org/), [MongoDB](https://www.mongodb.com/download-center/community) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
-$ git clone git@github.com:AyzekUorren/twitterAppBackend.git
+$ git clone git@github.com:AyzekUorren/twitter-app-backend.git
 $ cd twitterAppBackend
 $ npm install
 $ npm start
