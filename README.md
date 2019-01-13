@@ -2,9 +2,11 @@
 
 Node.js app using [Express](http://expressjs.com/).
 
+App uses
+
 ## Running Locally
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
+Make sure you have [Node.js](http://nodejs.org/), [MongoDB](https://www.mongodb.com/download-center/community) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
 $ git clone git@github.com:AyzekUorren/twitterAppBackend.git
