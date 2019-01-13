@@ -5,8 +5,17 @@ const LocalStrategy = require('passport-local');
 const jwtSecret = require('./config/env').jwtSecret;
 const User = require('./models/user');
 
+const cookieExtractor = function(req) {
+    let token = null;
+    if (req && req.cookies)
+    {
+        token = req.cookies['authorization'];
+    }
+    return token;
+};
+
 passport.use(new JwtStrategy({
-    jwtFromRequest: ExtractJwt.fromHeader('authorization'),
+    jwtFromRequest: cookieExtractor,
     secretOrKey: jwtSecret
 }, async (payLoad, done) => {
     try {
@@ -21,6 +30,16 @@ passport.use(new JwtStrategy({
     }
 }));
 
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    User.findById(id).then((user) => {
+        done(null, user);
+    });
+});
+
 passport.use(new LocalStrategy({
     usernameField: 'email'
 }, async (email, password, done) => {
@@ -29,7 +48,7 @@ passport.use(new LocalStrategy({
         if(!user) {
             return done(null, false);
         }
-        
+
         const isMatch =  user.isValidPassword(password);
         if(!isMatch) {
             return done(null, false);

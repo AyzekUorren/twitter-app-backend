@@ -1,12 +1,12 @@
-const router = require('express-promise-router')()
-const userController = require('../controllers/user')
-const passport = require('passport')
-const passportConf = require('../passport')
+const router = require('express-promise-router')();
+const userController = require('../controllers/user');
+const passport = require('passport');
+const passportConf = require('../passport');
 
 router
     /**
      *  @swagger
-     *  
+     *
      *  paths:
      *   /user/signup:
      *    post:
@@ -15,13 +15,13 @@ router
      *      - application/json
      *     tags:
      *      - user
-     *  
+     *
      *     parameters:
      *      - in: body
      *        name: user
      *        schema:
      *         $ref: "#/definitions/User"
-     *  
+     *
      *     responses:
      *       200:
      *        description: create new user
@@ -31,13 +31,13 @@ router
      *           type: {}
      *       400:
      *        description: User alredy Exists
-     *  
+     *
      */
-.post('/user/signup', userController.signUp)
+.post('/user/signup', userController.validate, userController.signUp)
 
     /**
      *  @swagger
-     *  
+     *
      *  paths:
      *   /user/signin:
      *    post:
@@ -46,28 +46,33 @@ router
      *      - application/json
      *     tags:
      *      - user
-     *  
+     *
      *     parameters:
      *      - in: body
      *        name: user
      *        schema:
      *         $ref: "#/definitions/User"
-     *  
+     *
      *     responses:
      *       200:
-     *        description: get access token
+     *        description: Login
+     *        headers:
+     *         Set-Cookie:
+     *          schema:
+     *           type: string
+     *           example: authorization=token; Path=/; HttpOnly
      *        content:
      *         text/plain:
      *          schema:
      *           type: {}
      *       400:
      *        description: Bad Request
-     *  
+     *
      */
-.post('/user/signin', userController.emailToLowerCase, passport.authenticate('local', { session: false }), userController.signIn)
+.post('/user/signin', userController.emailToLowerCase, userController.validate, passport.authenticate('local', { session: false }), userController.signIn)
     /**
      *  @swagger
-     *  
+     *
      *  paths:
      *   /user/me:
      *    get:
@@ -76,10 +81,8 @@ router
      *      - application/json
      *     tags:
      *      - user
-     *     security:
-     *      - signIn: []
      *     description: Get user info
-     *  
+     *
      *     responses:
      *       200:
      *        description: Current user
@@ -87,11 +90,39 @@ router
      *         text/plain:
      *          schema:
      *           type: {}
-     *       400:
-     *        description: Bad request
-     *  
+     *       401:
+     *        description: Unauthorized
+     *
      */
 .get('/user/me', passport.authenticate('jwt', { session: false }), userController.getUser)
+
+
+/**
+ *  @swagger
+ *
+ *  paths:
+ *   /user/logout:
+ *    get:
+ *     summary: Logout user.
+ *     consumes:
+ *      - application/json
+ *     tags:
+ *      - user
+ *     description: Logout user
+ *
+ *     responses:
+ *       200:
+ *        description: Logout user
+ *        content:
+ *         text/plain:
+ *          schema:
+ *           type: {}
+ *       401:
+ *        description: Unauthorized
+ *
+ */
+
+.get('/user/logout', userController.logout);
 
 
 module.exports = router;

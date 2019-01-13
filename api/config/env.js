@@ -7,4 +7,7 @@ module.exports = {
   secret: process.env.secret || 'dev',
   name: process.env.name || 'dev',
   jwtSecret: process.env.jwtSecret || 'dev',
+  cookie_secret: process.env.cookie_secret || 'dev',
+  cookie_name: process.env.cookie_name || 'Twitter-app',
+
 }
