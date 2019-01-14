@@ -21,6 +21,18 @@ const bycrypt = require('bcryptjs');
  *       username:
  *         type: string
  *         example: Jony
+ *   UserSignIn:
+ *     type: object
+ *     required:
+ *       - email
+ *       - password
+ *     properties:
+ *       email:
+ *         type: string
+ *         example: some@mail.com
+ *       password:
+ *         type: string
+ *         example: 123456789q
  *
  */
 
