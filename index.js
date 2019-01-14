@@ -22,7 +22,6 @@ const swaggerSpec = swaggerJSDoc({
       title: 'Twitter web-app API',
       version: '1.0.0'
     },
-    host: `${config.defaultUrl}:${config.port}`,
     basePath: '/api/v1',
   },
   apis: ['./api/**/*.js']
