@@ -1,5 +1,5 @@
 const { BadRequest, MongoError } = require("../config/error");
-const { logOut, logError } = require("../../logger/logger");
+const { logOut } = require("../../logger/logger");
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const { secret, name } = require('../config/env');
@@ -34,7 +34,7 @@ module.exports = {
 			res.json({ access_token });
 		});
 		} catch(error) {
-		 	next(error);
+			next(error);
 		}
 	},
 	signIn: async (req, res, next) => {

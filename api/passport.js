@@ -4,7 +4,6 @@ const { ExtractJwt } = require('passport-jwt');
 const LocalStrategy = require('passport-local');
 const jwtSecret = require('./config/env').jwtSecret;
 const User = require('./models/user');
-const { logError } = require("../logger/logger");
 const { MongoError } = require("./config/error");
 
 const cookieExtractor = function(req) {
