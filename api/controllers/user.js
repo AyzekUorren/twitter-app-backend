@@ -1,5 +1,5 @@
-const { BadRequest } = require("../config/error");
-
+const { BadRequest, MongoError } = require("../config/error");
+const { logOut, logError } = require("../../logger/logger");
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const { secret, name } = require('../config/env');
@@ -18,35 +18,40 @@ module.exports = {
 		try {
 		const { email, password, username } = req.body;
 
-		const user = await User.findOne({ email });
-		if (user) throw new BadRequest('User already exist');
+		const user = await User.findOne({ email: email.toLowerCase() });
+		if (user) {
+			throw new BadRequest('User already exist');
+		}
 
 		const newUser = new User ({ email, password, username });
 		return await newUser.save( (err, user) => {
-			if (err) return err;
+			if (err) {
+				return new MongoError('Schema save failed');
+			};
 			const access_token = createToken(user);
-			console.log(`=> `, access_token);
+			logOut(access_token);
 			res.cookie('authorization', access_token);
 			res.json({ access_token });
 		});
 		} catch(error) {
-		 next(error);
+		 	next(error);
 		}
 	},
 	signIn: async (req, res, next) => {
 		const access_token = createToken(req.user);
-		console.log(`=> `, access_token);
+		logOut(access_token);
 		res.cookie('authorization', access_token);
 		res.json({ access_token });
 	},
 	logout: async (req, res, next) => {
+		const { redirectUrl } = req.query;
 		res.clearCookie("authorization");
-		res.redirect('/');
+		res.redirect(redirectUrl || '/');
 	},
 	getUser: async(req, res, next) => {
 		const { _id, email, username } = req.user;
 		const user = { id: _id, email, username };
-		console.log(`=> `, user);
+		logOut(user);
 		res.status(200).json(user);
 	},
 	emailToLowerCase: async (req, res, next) => {

@@ -4,6 +4,8 @@ const { ExtractJwt } = require('passport-jwt');
 const LocalStrategy = require('passport-local');
 const jwtSecret = require('./config/env').jwtSecret;
 const User = require('./models/user');
+const { logError } = require("../logger/logger");
+const { MongoError } = require("./config/error");
 
 const cookieExtractor = function(req) {
     let token = null;
@@ -21,7 +23,7 @@ passport.use(new JwtStrategy({
     try {
         const user = await User.findById(payLoad.sub);
         if(!user) {
-            return done(null, false);
+            throw new MongoError('User not found');
         }
 
         done(null, user);
@@ -49,9 +51,9 @@ passport.use(new LocalStrategy({
             return done(null, false);
         }
 
-        const isMatch =  user.isValidPassword(password);
+        const isMatch =  await user.isValidPassword(password);
         if(!isMatch) {
-            return done(null, false);
+            throw new MongoError('Password is not valid');
         }
 
         done(null, user);

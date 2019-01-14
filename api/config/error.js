@@ -5,6 +5,15 @@ class BadRequest extends Error {
         this.message = message;
     }
 }
+
+class MongoError extends Error {
+    constructor(message = `Mongo Request failed`) {
+        super();
+        this.name = 'MongoError';
+        this.message = message;
+    }
+}
 module.exports = {
-  BadRequest
+    BadRequest,
+    MongoError
 };

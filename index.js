@@ -56,7 +56,7 @@ express()
   // Startup Time and running time of server
   .get('', timeConfig.getTimeRun)
   // Routes
-  .use(logger)
+  .use(logger.logIn)
   .use('/api/v1', require('./api/routes/api'))
   .use(errorHandler)
   .use('*', (req, res) => {console.log(req.baseUrl); res.send('API path not supported');})

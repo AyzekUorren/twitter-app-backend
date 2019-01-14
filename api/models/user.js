@@ -29,8 +29,6 @@ const bycrypt = require('bcryptjs');
 const UsersSchema = new Schema({
     email: {
         type: String,
-        required: [true, 'email field is required'],
-        unique: [true, 'email field is unique'],
         lowercase: true,
     },
     username: {
@@ -38,7 +36,6 @@ const UsersSchema = new Schema({
     },
     password: {
         type: String,
-        required: [true, 'password field is required'],
     }
 });
 

@@ -110,6 +110,12 @@ router
  *     tags:
  *      - user
  *     description: Logout user
+ *     parameters:
+ *      - in: query
+ *        name: redirectUrl
+ *        type: string
+ *        required: true
+ *        description: Redirect url.
  *
  *     responses:
  *       200:
@@ -123,7 +129,7 @@ router
  *
  */
 
-.get('/user/logout', userController.logout);
+.get('/user/logout', passport.authenticate('jwt', { session: false }), userController.logout);
 
 
 module.exports = router;
