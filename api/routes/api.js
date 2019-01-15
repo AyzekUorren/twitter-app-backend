@@ -1,5 +1,6 @@
 const router = require('express-promise-router')();
 const userController = require('../controllers/user');
+const tweetController = require('../controllers/tweet');
 const passport = require('passport');
 const passportConf = require('../passport');
 
@@ -128,7 +129,69 @@ router
  *
  */
 
-.get('/user/logout', passport.authenticate('jwt', { session: false }), userController.logout);
+.get('/user/logout', passport.authenticate('jwt', { session: false }), userController.logout)
 
+
+/**
+ *  @swagger
+ *
+ *  paths:
+ *   /tweet:
+ *    post:
+ *     summary: Create a Tweet
+ *     consumes:
+ *      - application/json
+ *     tags:
+ *      - tweet
+ *
+ *     parameters:
+ *      - in: body
+ *        name: user
+ *        schema:
+ *         $ref: "#/definitions/Tweet"
+ *
+ *     responses:
+ *       200:
+ *        description: Created Tweet
+ *        content:
+ *         text/plain:
+ *          schema:
+ *           type: {}
+ *       400:
+ *        description: Bad Request
+ *
+ */
+.post('/tweet', passport.authenticate('jwt', { session: false }), tweetController.createTweet)
+
+/**
+ *  @swagger
+ *
+ *  paths:
+ *   /tweet:
+ *    get:
+ *     summary: Get tweets list.
+ *     consumes:
+ *      - application/json
+ *     tags:
+ *      - tweet
+ *     description: Tweets list
+ *     parameters:
+ *      - in: query
+ *        name: count
+ *        type: integer
+ *        description: how much
+ *
+ *     responses:
+ *       200:
+ *        description: Logout user
+ *        content:
+ *         text/plain:
+ *          schema:
+ *           type: {}
+ *       401:
+ *        description: Unauthorized
+ *
+ */
+.get('/tweet', passport.authenticate('jwt', { session: false }), tweetController.getTweets);
 
 module.exports = router;
