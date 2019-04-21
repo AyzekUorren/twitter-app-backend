@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const ObjectId = Schema.ObjectId
+const ObjectId = Schema.ObjectId;
 
 /**
  * @swagger
@@ -20,31 +20,31 @@ const ObjectId = Schema.ObjectId
  */
 
 const UserSchema = new Schema({
-    user_id: {
-        type: ObjectId
-    }
+  user_id: {
+    type: ObjectId
+  }
 });
 
 const LikeSchema = new Schema({
-    id: {
-        type: String,
-    },
-    users: {
-        type: [ UserSchema ]
-    }
+  id: {
+    type: String
+  },
+  users: {
+    type: [UserSchema]
+  }
 });
 
 const TweetSchema = new Schema({
-    message: {
-        type: String
-    },
-    user_id: {
-        type: UserSchema
-    },
-    likes: {
-        type: [ LikeSchema ]
-    }
+  message: {
+    type: String
+  },
+  user_id: {
+    type: UserSchema
+  },
+  likes: {
+    type: [LikeSchema]
+  }
 });
 
-const Tweet = mongoose.model('tweet', TweetSchema);
+const Tweet = mongoose.model("tweet", TweetSchema);
 module.exports = Tweet;

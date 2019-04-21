@@ -1,18 +1,18 @@
 let startTimestamp;
 
-getTimestamp = () => {
-    if (!startTimestamp) {
-        startTimestamp = new Date();
-    }
-    return startTimestamp;
+const getTimestamp = () => {
+  if (!startTimestamp) {
+    startTimestamp = new Date();
+  }
+  return startTimestamp;
 };
 
 getTimestamp();
 
-getTimeRun = () => {
+const getTimeRun = () => {
   let nowTime = new Date();
   return (nowTime.getTime() - getTimestamp()) / 1000;
-}
+};
 
 module.exports.getTimeRun = (req, res) => {
   let jsonObj = new Object({
@@ -20,4 +20,4 @@ module.exports.getTimeRun = (req, res) => {
     upTime: `${getTimeRun()}sec.`
   });
   res.send(JSON.stringify(jsonObj, null, 4));
-  }
+};
