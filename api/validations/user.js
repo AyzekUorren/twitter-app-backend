@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-module.exports = UserValidateSchema = Joi.object().keys({
+module.exports.UserValidateSchema = Joi.object().keys({
   email: Joi.string()
     .email({ minDomainAtoms: 2 })
     .required(),

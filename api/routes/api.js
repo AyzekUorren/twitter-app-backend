@@ -2,6 +2,7 @@ const router = require("express-promise-router")();
 const userController = require("../controllers/user");
 const tweetController = require("../controllers/tweet");
 const passport = require("passport");
+// eslint-disable-next-line no-unused-vars
 const passportConf = require("../passport");
 
 router

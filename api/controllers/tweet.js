@@ -1,13 +1,12 @@
-const { BadRequest, MongoError } = require("../config/error");
+const { MongoError } = require("../config/error");
 const { logOut } = require("../../logger/logger");
 const Tweet = require("../models/tweet");
-const UserValidateSchema = require("../validations/user");
-const Joi = require("joi");
 
 module.exports = {
   createTweet: async (req, res, next) => {
     try {
       const { message } = req.body;
+      // eslint-disable-next-line camelcase
       const { _id: user_id } = req.user;
 
       const newTweet = new Tweet({ message, user_id, likes: [] });

@@ -32,10 +32,10 @@ module.exports = {
         if (err) {
           return new MongoError("Schema save failed");
         }
-        const access_token = createToken(user);
-        logOut(access_token);
-        res.cookie("authorization", access_token);
-        res.json({ access_token });
+        const accessToken = createToken(user);
+        logOut(accessToken);
+        res.cookie("authorization", accessToken);
+        res.json({ accessToken: accessToken });
       });
     } catch (error) {
       next(error);
@@ -43,10 +43,10 @@ module.exports = {
   },
 
   signIn: async (req, res, next) => {
-    const access_token = createToken(req.user);
-    logOut(access_token);
-    res.cookie("authorization", access_token);
-    res.json({ access_token });
+    const accessToken = createToken(req.user);
+    logOut(accessToken);
+    res.cookie("authorization", accessToken);
+    res.json({ accessToken: accessToken });
   },
 
   logout: async (req, res, next) => {

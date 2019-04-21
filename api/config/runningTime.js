@@ -15,9 +15,10 @@ const getTimeRun = () => {
 };
 
 module.exports.getTimeRun = (req, res) => {
-  let jsonObj = new Object({
+  let jsonObj = {
     started: getTimestamp(),
     upTime: `${getTimeRun()}sec.`
-  });
+  };
+
   res.send(JSON.stringify(jsonObj, null, 4));
 };
